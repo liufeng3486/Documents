@@ -23,6 +23,7 @@ ____
 ![Image text](https://raw.githubusercontent.com/liufeng3486/Documents/master/python%E5%9F%BA%E7%A1%80/_static/screenshot/python_down_1.png)
 
 请注意，`Python2.x.x 与 Python3.x.x 如无必要，尽量不要混合使用`。因为二者在语法上存在一定区别。二者的解释器也不相互兼容。毕竟谁也不想再Debug到最后发现是解释器设置的问题。
+
 个人建议：如无特定需求。请选择`3.X.X`版本.点击相关 `Download`按钮后跳转至下图所在页面。`Files`在很下面，努力的使用滚轮往下滚吧。
 
 ![Image text](https://raw.githubusercontent.com/liufeng3486/Documents/master/python%E5%9F%BA%E7%A1%80/_static/screenshot/python_down_2.png)
