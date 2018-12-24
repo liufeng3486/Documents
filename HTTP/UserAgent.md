@@ -57,6 +57,16 @@ Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) 
     response = requests.request("GET", url, headers=headers)
     print(response.text)
 
+### 查看请求的User-Agent
+
+    import requests
+    url = "http://www.baidu.com"
+    headers = { }
+    response = requests.request("GET", url, headers=headers)
+    print(response.text)
+    response.request.headers["user-agent"]
+
+
 ## 常用User-Agent
 
 * PC端
