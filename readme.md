@@ -18,7 +18,7 @@
 4.Python
 
     4.1 安装 
-        ``4.1.1 Windwos``
+        **4.1.1 Windwos**
         4.1.2 mac
         
 5.接口测试
