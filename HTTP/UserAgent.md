@@ -1,6 +1,7 @@
 # UserAgent 用户代理
 
 一个带有客户标识的特殊header。
+当请求数据都没有问题的时候时候，可以先看看是不是服务器对useragent进行了限制。因为使用代码或者其他方式实现接口请求的时候，都会自动添加useragent，所以这个问题比较容易被忽略。比如使用python的requests库进行请求时 User-Agent: python-requests/2.18.4
 
 ## 解析
 
