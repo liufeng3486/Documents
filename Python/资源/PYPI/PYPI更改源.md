@@ -4,9 +4,7 @@
 ``PyPi`` == ``Python Package Index``
 
 官网地址 == https://pypi.org/
-
 这个站点是做什么的，网站首页的自述写的很明白：查找，安装以及开源python包。
-
 所以平时说到的python有非常多的轮子，这些轮子就在这里。
 
 **国内源**
