@@ -25,13 +25,13 @@
     + 修改~/.pip/pip.conf(或者创建一个),将index-url变量修改为所要更换的源地址:
 
 
+
      [global]
       index-url = https://pypi.tuna.tsinghua.edu.cn/simple
 　
 + windows
     + user目录中创建一个pip目录,如C:\Users\xx\pip，新建文件pip.ini,内容如下：
     
-
 
     [global]
     index-url = https://pypi.tuna.tsinghua.edu.cn/simple
