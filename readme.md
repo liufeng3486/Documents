@@ -22,6 +22,9 @@
         + 测试方法
 + 常用库
     + PIL
+    + SimpleHTTPServer 
+    + RE
+    + WIN32
 + 基础知识
     +  [CMD](http://cmd)
     +  [Everything](http://everything)
