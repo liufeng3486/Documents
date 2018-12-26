@@ -131,7 +131,7 @@ print(list_1.index('a')) #使用index()
 + 方法 2
 ```python
 list_1 = ['a','b','c']
-for index,value in enumerate:
+for index,value in enumerate(list_1):
     if value == 'a' :
         print (index)          #通过遍历的方式获取相应值的下标
 ```
