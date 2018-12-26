@@ -136,12 +136,12 @@ for index,value in enumerate:
         print (index)          #通过遍历的方式获取相应值的下标
 ```
 **['A','z', 'B', 'c', 'f', 'w', 'z']->获取'z'的下标** 
-+ 方法 1 一般的方法
++ 方法 1 
 ```python
 list_1 = ['a','b','c']
 for index,value in enumerate:
     if value == 'a' :
-        print (index)          #通过便利的方式获取相应值的下标
+        print (index)          #通过遍历的方式获取相应值的下标
 ```
 + 方法 2 
 ```python
