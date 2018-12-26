@@ -1,6 +1,6 @@
 + 资源类
     + ``UA``
-    + PYPI源
+    + ``PYPI源``
     +  
 + BlueTest
     + 介绍
