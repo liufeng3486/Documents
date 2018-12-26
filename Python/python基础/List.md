@@ -18,6 +18,26 @@ not_null_list = [1,2,3] #获得一个非空数组 not_null_list = [1,2,3]
 ```
 从代码中可以看出，使用最原始的方式来实例化``list``类的方式更加繁琐，而且不能取得更好的效果。所以一般都会采用`方法2`.
 
+## 遍历 数组
++ 方法 1 #只遍历 值 
+```python
+list_1 = ["A","B","C"]
+for value in list_1:
+    print value # >>"A" "B" "C"
+```
++ 方法 2 可读性最好，但是比较繁琐
+```python
+list_1 = ["A","B","C"]
+for index in range(len(list_1)):
+    print index,list_1[index]    # >>1，"A"   2，"B"   3，"C"
+```
++ 方法 3 最常用
+```python
+list_1 = ["A","B","C"]
+for index,value in enumerate(list_1):
+    print index,value    # >>1，"A"   2，"B"   3，"C"
+```
+
 ## 增:数组增加元素，数组复制
 >**[1,2,3] + [4] = [1,2,3,4]**
 + 方法 1
