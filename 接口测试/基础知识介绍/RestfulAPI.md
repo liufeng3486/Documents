@@ -33,6 +33,7 @@ RESTfulAPI与之关联最大的就 [Ajax](http://)。在大部分的情况下，
 传输的数据基本都是``json``,所以在请求的``headers``里，一般都是 ``"contentType": "application/json",``
 
 这是`符合RESTful风格`的。是否有版本号并不一定，也有些情况是将版本号放在headers中。
+
 |Method|URL|行为|
 |:----:|:----|----:|
 |GET|http://www.xxx.com/api/v1.0/tasks|查询列表|
@@ -40,7 +41,9 @@ RESTfulAPI与之关联最大的就 [Ajax](http://)。在大部分的情况下，
 |POST|http://www.xxx.com/api/v1.0/tasks|创建/更新|
 |PUT|http://www.xxx.com/api/v1.0/tasks/task_id|更新|
 |DELETE|http://www.xxx.com/api/v1.0/tasks/task_id|删除|
+
 这是`不符合RESTful风格`的，在日常工作中大家肯定经常看到这样的URL
+
 |Method|URL|行为|
 |:----:|:----|----:|
 |GET|http://www.xxx.com/api/gettasks|查询列表|
