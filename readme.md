@@ -31,6 +31,9 @@
     + SimpleHTTPServer 
     + RE
     + WIN32
+    + Log
+        + Logging
+        + Loguru
 + 基础知识
     +  [CMD](http://cmd)
     +  [Everything](http://everything)
