@@ -5,7 +5,7 @@ class dict(object)：
 ```
 从内建模块``builtins.py``的源码中可以看出，``dict``的父类是``object``（python中的万年老父亲）。
 
-和list不同的是，字典本身无序`python`，而且key唯一。
+和list不同的是，字典本身无序`python2.x`，而且key唯一。
 + 无序：python3里的字典不像python2那样随性了，是根据赋值的顺序来决定输出的顺序的。
     + 但是任然没有很好的办法排序。
     + dict_1 = {"key1":"1","key3":3,"key2":2}  没有办法让dict_1变成  {"key1":"1","key2":2,"key3":3} 
