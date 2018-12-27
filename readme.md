@@ -46,6 +46,7 @@
     + 目录
     +  [CMD](http://cmd)
     +  [Everything](http://everything)
+    +  [Ajax](http://)
 + 常用工具
     + 目录
     +  everyone
