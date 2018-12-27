@@ -1,15 +1,19 @@
 + 资源类
+    + 目录
     + ``UA``
     + ``PYPI源``
     +  
 + BlueTest
+    + 目录
     + 介绍
     +
 + 测试生涯
+    + 目录
     + 测试定位
     + 测试基本技能
     + ....
 + Python
+    + 目录
     +  安装 
         + ``Windows``
         +  mac
@@ -20,13 +24,17 @@
         + Int
         + String
 + 接口测试
+    + 目录
 + 性能测试
+    + 目录
 + 项目中的技术
+    + 目录
     + WebSocke
         + 介绍
         + 常用场景
         + 测试方法
 + 常用库
+    + 目录
     + PIL
     + SimpleHTTPServer 
     + RE
@@ -35,9 +43,11 @@
         + Logging
         + Loguru
 + 基础知识
+    + 目录
     +  [CMD](http://cmd)
     +  [Everything](http://everything)
 + 常用工具
+    + 目录
     +  everyone
     +  fiddler
     + postman
