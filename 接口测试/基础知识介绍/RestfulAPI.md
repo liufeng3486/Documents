@@ -46,7 +46,7 @@ RESTfulAPI与之关联最大的就 [Ajax](http://)。在大部分的情况下，
 
 |Method|URL|行为|
 |:----:|:----|----:|
-~~|GET|http://www.xxx.com/api/gettasks|查询列表|
+|~~GET~~|http://www.xxx.com/api/gettasks|查询列表|
 |GET|http://www.xxx.com/api/getdetal_id|查询详单|
 |POST|http://www.xxx.com/api/createtask|创建/更新|
 |PUT|http://www.xxx.com/api/tasks/updatetask|更新|
