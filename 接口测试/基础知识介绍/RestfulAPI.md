@@ -46,11 +46,11 @@ RESTfulAPI与之关联最大的就 [Ajax](http://)。在大部分的情况下，
 
 |Method|URL|行为|
 |:----:|:----|----:|
-|GET|http://www.xxx.com/api/gettasks|查询列表|
+~~|GET|http://www.xxx.com/api/gettasks|查询列表|
 |GET|http://www.xxx.com/api/getdetal_id|查询详单|
 |POST|http://www.xxx.com/api/createtask|创建/更新|
 |PUT|http://www.xxx.com/api/tasks/updatetask|更新|
-|DELETE|http://www.xxx.com/api/tasks/deltask|删除|
+|DELETE|http://www.xxx.com/api/tasks/deltask|删除|~~
 
 除了URL的问题，在日常工作中，经常见到接口的名字叫``http://www.xx.com/getdetail``，然后使用的是``POST``方法。非常的.....这种情况，居然还号称自己是RESTful风格。
 
