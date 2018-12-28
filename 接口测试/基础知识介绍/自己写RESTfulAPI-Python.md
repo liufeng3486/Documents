@@ -128,7 +128,9 @@ if __name__ == '__main__':
 
 ## 测试一下
 为了方便大家使用，已经制作好了相应POSTMAN数据，可以再运行以上代码启动WEB服务后，在POSTMAN里导入
+
 [Test PostMan Data 右键另存为](https://raw.githubusercontent.com/liufeng3486/Documents/master/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%BB%8B%E7%BB%8D/_static/files/RESTful_Flask_Demo.json.postman_collection)
+
 就可以获得下图的内容,并直接进行测试
 ![Image text](https://raw.githubusercontent.com/liufeng3486/Documents/master/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%BB%8B%E7%BB%8D/_static/screenshot/RESTfulAPI-Python_PostMan.png)
 
