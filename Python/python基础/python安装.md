@@ -40,6 +40,7 @@ ____
 ### 安装校验
 在[CMD](http://cmd)里执行python
 ![Image text](https://raw.githubusercontent.com/liufeng3486/Documents/master/Python/python%E5%9F%BA%E7%A1%80/_static/screenshot/python_cmd_check.png)
+
 出现以上内容，说明`python`安装成功了。之后根据爱好，选相关的集成开发环境吧。毕竟在文本里敲代码，不是谁都适合的
 
 
