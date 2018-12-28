@@ -47,6 +47,7 @@ if __name__ == '__main__':
 ## 编写接口
 
 我们按照下面的接口列表来进行编写的工作
+
 |Method|URL|行为|Function Name|
 |:----:|:----|----:|----:|
 |GET|http://127.0.0.1:5000/api/v1.0/tasks|查询列表|getTasks|
@@ -54,6 +55,7 @@ if __name__ == '__main__':
 |POST|http://127.0.0.1:5000/api/v1.0/tasks|创建/更新|createTask|
 |PUT|http://127.0.0.1:5000/api/v1.0/tasks/[task_id]|更新|updataTask|
 |DELETE|http://127.0.0.1:5000/api/v1.0/tasks/[task_id]|删除|deleteTask|
+
 
 为了便于理解和简化工作量，我们这里就不使用数据库了。我们使用一个字典来管理数据。
 
