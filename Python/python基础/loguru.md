@@ -1,4 +1,4 @@
-# loguru日志模块一个完全可以取代buildin logging module的日志模块
+# loguru日志模块
 ## 简单实践
 首先，你要安装
 ```
