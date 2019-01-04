@@ -65,7 +65,7 @@
     + WIN32
     + Log
         + Logging
-        + Loguru
+        + ``Loguru``
     + datetime
         + 各种转换
         + 加减的操作
