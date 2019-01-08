@@ -22,10 +22,17 @@
         + ``Windows``
         +  mac
     +  基础知识    
-        + ``List``
-        + ``Dict``
-        + ``Tuple``
-        + ``Set``
+        + 数据结构
+            + 综述
+            + ``List``
+            + ``Dict``
+            + ``Tuple``
+            + ``Set``
+        + 逻辑控制
+            + 综述
+            + IF
+            + For
+            + While
         + Int
         + String
     +  Web框架
