@@ -13,7 +13,7 @@ PEP 0 -- Python改进建议目录  (PEPs)   - 部分
 ### 内容
 *   [介绍](#介绍)
 *   [类别索引](#类别索引)
-<div style="display:none;">2312321</div>
+<div
     *   [Meta-PEPs (PEPs about PEPs or Processes)](#meta-peps-peps-about-peps-or-processes)
     *   [Other Informational PEPs](#other-informational-peps)
     *   [Provisional PEPs (provisionally accepted; interface may still change)](#provisional-peps-provisionally-accepted-interface-may-still-change)
@@ -29,7 +29,7 @@ PEP 0 -- Python改进建议目录  (PEPs)   - 部分
 *   [PEP Status Key](#pep-status-key)
 *   [Authors/Owners](#authors-owners)
 *   [References](#id1)
-
+></div>
 [介绍](#介绍)
 ====================
 本PEP包含了所有Python改进建议的索引，即PEPs。PEP编号由PEP作者确定，该编号一旦分配，将永不更改\[[1](#id2)\]。所有历史记录与版本号相关联\[[2](#id3)\].
