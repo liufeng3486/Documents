@@ -37,6 +37,7 @@
             + While
         + Int
         + String
+    + PEP翻译
     +  Web框架
         + Django
             + 介绍与安装
