@@ -30,8 +30,11 @@ PEP 0 -- Python改进建议目录  (PEPs)   - 部分
 *   [Authors/Owners](#authors-owners)
 *   [References](#id1)
 ></div>
+   
 [介绍](#介绍)
+
 ====================
+
 本PEP包含了所有Python改进建议的索引，即PEPs。PEP编号由PEP作者确定，该编号一旦分配，将永不更改\[[1](#id2)\]。所有历史记录与版本号相关联\[[2](#id3)\].
 
 [类别索引](#类别索引)
