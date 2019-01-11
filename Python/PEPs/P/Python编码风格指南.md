@@ -20,7 +20,7 @@ PEP 8 -- Python编码风格指南
     *   [行的长度限制](#行的长度限制)
     *   [如何对二元运算换行?](#如何对二元运算换行)
     *   [空行](#空行)
-    *   [源文件编](#源文件编)
+    *   [源文件编码](#源文件编码)
     *   [Imports 导入](#Imports导入)
     *   [Module Level Dunder Names](#module-level-dunder-names)
 *   [String Quotes](#string-quotes)
