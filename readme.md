@@ -83,7 +83,7 @@
     + WIN32
     + Log
         + Logging
-        + [``Loguru``](https://github.com/liufeng3486/Documents/blob/master/Python/python%E5%9F%BA%E7%A1%80/loguru.md)
+        + [``Loguru``](https://github.com/liufeng3486/Documents/blob/master/Python/%E5%B8%B8%E7%94%A8%E5%BA%93/loguru.md)
     + datetime
         + 各种转换
         + 加减的操作
