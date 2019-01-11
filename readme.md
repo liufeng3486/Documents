@@ -4,7 +4,7 @@
     + 目录
     + [``UA``](https://github.com/liufeng3486/Documents/blob/master/HTTP/UserAgent.md)
     + ``PYPI源``
-    + ``HTTP状态码对照表``
+    + [``HTTP状态码``](https://github.com/liufeng3486/Documents/blob/master/HTTP/%E7%8A%B6%E6%80%81%E7%A0%81.md)
     +  
 + BlueTest
     + 目录
@@ -21,15 +21,15 @@
 + Python
     + 目录
     +  安装 
-        + ``Windows``
+        + [``Windows``](https://github.com/liufeng3486/Documents/blob/master/Python/python%E5%9F%BA%E7%A1%80/python%E5%AE%89%E8%A3%85.md)
         +  mac
     +  基础知识    
         + 数据结构
-            + ``综述``
-            + ``List``
-            + ``Dict``
-            + ``Tuple``
-            + ``Set``
+            + [``综述``](https://github.com/liufeng3486/Documents/blob/master/Python/python%E5%9F%BA%E7%A1%80/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E7%BB%BC%E8%BF%B0.md)
+            + [``List``](https://github.com/liufeng3486/Documents/blob/master/Python/python%E5%9F%BA%E7%A1%80/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/List.md)
+            + [``Dict``](https://github.com/liufeng3486/Documents/blob/master/Python/python%E5%9F%BA%E7%A1%80/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/Dict.md)
+            + [``Tuple``](https://github.com/liufeng3486/Documents/blob/master/Python/python%E5%9F%BA%E7%A1%80/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/Tuple.md)
+            + [``Set``](https://github.com/liufeng3486/Documents/blob/master/Python/python%E5%9F%BA%E7%A1%80/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/Set.md)
         + 逻辑控制
             + 综述
             + IF
@@ -55,11 +55,11 @@
     + 目录
     + 做个接口的DEMO站点
     + 基础知识
-        + ``接口SOAP RESTFUL RPC说明``
+        + [``接口SOAP RESTFUL RPC说明``](https://github.com/liufeng3486/Documents/blob/master/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%BB%8B%E7%BB%8D/%E6%8E%A5%E5%8F%A3SOAP%20RESTFUL%20RPC%E8%AF%B4%E6%98%8E.md)
         + RESTful 
-            + ``RESTful介绍``
+            + [``RESTful介绍``](https://github.com/liufeng3486/Documents/blob/master/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%BB%8B%E7%BB%8D/RestfulAPI.md)
             + RESTfulAPI 例子
-                + ``自己写RESTfulAPI-Python-Flask``
+                + [``自己写RESTfulAPI-Python-Flask``](https://github.com/liufeng3486/Documents/blob/master/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%BB%8B%E7%BB%8D/%E8%87%AA%E5%B7%B1%E5%86%99RESTfulAPI-Python.md)
                 + 自己写RESTfulAPI-Python-Sanic
                 + 自己写RESTfulAPI-Java
                 ....
@@ -72,7 +72,7 @@
         + 常用场景
         + 测试方法
     + 挡板 mock
-    + ``Float 类型数据小数位异常``
+    + [``Float 类型数据小数位异常``](https://github.com/liufeng3486/Documents/blob/master/%E7%9F%A5%E8%AF%86%E7%82%B9/%E6%B5%AE%E7%82%B9%E6%95%B0%E4%B8%8E%E4%BA%8C%E8%BF%9B%E5%88%B6.md)
 + 常用库
     + 目录
     + PIL
@@ -81,7 +81,7 @@
     + WIN32
     + Log
         + Logging
-        + ``Loguru``
+        + [``Loguru``](https://github.com/liufeng3486/Documents/blob/master/Python/python%E5%9F%BA%E7%A1%80/loguru.md)
     + datetime
         + 各种转换
         + 加减的操作
