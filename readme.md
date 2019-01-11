@@ -3,7 +3,7 @@
 + 资源类
     + 目录
     + [``UA``](https://github.com/liufeng3486/Documents/blob/master/HTTP/UserAgent.md)
-    + ``PYPI源``
+    + [``PYPI源``](https://github.com/liufeng3486/Documents/blob/master/Python/%E8%B5%84%E6%BA%90/PYPI/PYPI%E6%9B%B4%E6%94%B9%E6%BA%90.md)
     + [``HTTP状态码``](https://github.com/liufeng3486/Documents/blob/master/HTTP/%E7%8A%B6%E6%80%81%E7%A0%81.md)
     +  
 + BlueTest
