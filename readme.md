@@ -2,7 +2,7 @@
 
 + 资源类
     + 目录
-    + [``UA``](https://github.com/liufeng3486/Documents/blob/master/HTTP/UserAgent.md)
+    + [``UserAgent 用户代理``](https://github.com/liufeng3486/Documents/blob/master/HTTP/UserAgent.md)
     + [``PYPI源``](https://github.com/liufeng3486/Documents/blob/master/Python/%E8%B5%84%E6%BA%90/PYPI/PYPI%E6%9B%B4%E6%94%B9%E6%BA%90.md)
     + [``HTTP状态码``](https://github.com/liufeng3486/Documents/blob/master/HTTP/%E7%8A%B6%E6%80%81%E7%A0%81.md)
     +  
@@ -32,7 +32,7 @@
             + [``Set``](https://github.com/liufeng3486/Documents/blob/master/Python/python%E5%9F%BA%E7%A1%80/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/Set.md)
         + 逻辑控制
             + 综述
-            + IF
+            + [``IF``](https://github.com/liufeng3486/Documents/blob/master/Python/python%E5%9F%BA%E7%A1%80/%E9%80%BB%E8%BE%91%E6%8E%A7%E5%88%B6/IF.md)
             + For
             + While
         + Int
@@ -83,7 +83,7 @@
     + WIN32
     + Log
         + Logging
-        + [``Loguru``](https://github.com/liufeng3486/Documents/blob/master/Python/python%E5%9F%BA%E7%A1%80/loguru.md)
+        + [``Loguru``](https://github.com/liufeng3486/Documents/blob/master/Python/%E5%B8%B8%E7%94%A8%E5%BA%93/loguru.md)
     + datetime
         + 各种转换
         + 加减的操作
