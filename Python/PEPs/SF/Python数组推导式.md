@@ -1,4 +1,4 @@
-PEP 202 -- Python数组推导式
+# PEP 202 -- Python数组推导式
 PEP 202 -- List Comprehensions
 ===
 
@@ -13,32 +13,39 @@ PEP 202 -- List Comprehensions
 |上传历史|
 ---
 内容
-Contents
 
-* Introduction
-* The Proposed Solution
-* Rationale
-* Examples
-* Reference Implementation
-* BDFL Pronouncements
-* References
+*   [介绍](#介绍)
+*   [解决方案](#解决方案)
+*   [理论基础](#理论基础)
+*   [例子](#例子)
+*   [参考文献](#参考文献)
+*   [Guido的声明](#Guido的声明)
+*   [参考](#参考)
 
-Introduction
-This PEP describes a proposed syntactical extension to Python, list comprehensions.
 
-The Proposed Solution
-It is proposed to allow conditional construction of list literals using for and if clauses. They would nest in the same way for loops and if statements nest now.
+[介绍](#介绍)
+=====================
+本篇PEP描述了Python提供的一种拓展语法，字数组推导式。
 
-Rationale
-List comprehensions provide a more concise way to create lists in situations where map() and filter() and/or nested loops would currently be used.
+[解决方案](#解决方案)
+=====================
+使用for和if通过一定条件构造数组，新数组的结构，将于for和if表现的结构一致。
 
-Examples
+[理论基础](#理论基础)
+=====================
+数组提供了一种简洁的新建方式，可以使用map(),filter() 以及相关嵌套循环来新建数组。
+
+[例子](#例子)
+=====================
+```python
 >>> print [i for i in range(10)]
 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-
+```
+```python
 >>> print [i for i in range(20) if i%2 == 0]
 [0, 2, 4, 6, 8, 10, 12, 14, 16, 18]
-
+```
+```python
 >>> nums = [1, 2, 3, 4]
 >>> fruit = ["Apples", "Peaches", "Pears", "Bananas"]
 >>> print [(i, f) for i in nums for f in fruit]
@@ -55,15 +62,21 @@ Examples
 [(1, 'Peaches'), (1, 'Pears'), (3, 'Peaches'), (3, 'Pears')]
 >>> print [i for i in zip(nums, fruit) if i[0]%2==0]
 [(2, 'Peaches'), (4, 'Bananas')]
-Reference Implementation
+```
+[参考文献](#参考文献)
+=====================
 List comprehensions become part of the Python language with release 2.0, documented in [1].
 
-BDFL Pronouncements
-The syntax proposed above is the Right One.
-The form [x, y for ...] is disallowed; one is required to write [(x, y) for ...].
-The form [... for x... for y...] nests, with the last index varying fastest, just like nested for loops.
-References
+[Guido的声明](#Guido的声明)
+=====================
+上面的代码都是正确的。
+错误的: [x, y for ...] ; 正确的 [(x, y) for ...].
+这样的结构 [... for x... for y...] , 相当于两层for循环的嵌套。
+
+
+[参考](#参考)
+=====================
 [1] http://docs.python.org/reference/expressions.html#list-displays
-Source: https://github.com/python/peps/blob/master/pep-0202.txt
+源码: https://github.com/python/peps/blob/master/pep-0202.txt
 
 
