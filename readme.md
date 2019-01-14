@@ -40,7 +40,7 @@
     + PEP翻译
         + [部分PEPs](https://github.com/liufeng3486/Documents/blob/master/Python/PEPs/%E9%83%A8%E5%88%86PEPs.md)
             + [PEP 8 -- Python编码风格指南  翻译中](https://github.com/liufeng3486/Documents/blob/master/Python/PEPs/P/Python%E7%BC%96%E7%A0%81%E9%A3%8E%E6%A0%BC%E6%8C%87%E5%8D%97.md)
-            + [PEP 202 -- Python数组推导式  ](https://github.com/liufeng3486/Documents/blob/master/Python/PEPs/SF/Python%E6%95%B0%E7%BB%84%E6%8E%A8%E5%AF%BC%E5%BC%8F.md)
+            + [``PEP 202 -- Python数组推导式``](https://github.com/liufeng3486/Documents/blob/master/Python/PEPs/SF/Python%E6%95%B0%E7%BB%84%E6%8E%A8%E5%AF%BC%E5%BC%8F.md)
     +  Web框架
         + Django
             + 介绍与安装
