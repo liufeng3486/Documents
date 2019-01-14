@@ -32,7 +32,7 @@
             + [``Set``](https://github.com/liufeng3486/Documents/blob/master/Python/python%E5%9F%BA%E7%A1%80/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/Set.md)
         + 逻辑控制
             + 综述
-            + IF
+            + [``IF``](https://github.com/liufeng3486/Documents/blob/master/Python/python%E5%9F%BA%E7%A1%80/%E9%80%BB%E8%BE%91%E6%8E%A7%E5%88%B6/IF.md)
             + For
             + While
         + Int
