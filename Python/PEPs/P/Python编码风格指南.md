@@ -26,7 +26,7 @@ PEP 8 -- Python编码风格指南
 *   [字符串的引号](字符串的引号)
 *   [语句、表达式中的空格](#语句、表达式中的空格)
     *   [空格的小烦恼](#空格的小烦恼)
-    *   [Other Recommendations](#other-recommendations)
+    *   [其他建议](#其他建议)
 *   [When to Use Trailing Commas](#when-to-use-trailing-commas)
 *   [Comments](#comments)
     *   [Block Comments](#block-comments)
