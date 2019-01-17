@@ -22,10 +22,10 @@ PEP 8 -- Python编码风格指南
     *   [空行](#空行)
     *   [源文件编码](#源文件编码)
     *   [Imports 导入](#Imports导入)
-    *   [Module Level Dunder Names](#module-level-dunder-names)
-*   [String Quotes](#string-quotes)
-*   [Whitespace in Expressions and Statements](#whitespace-in-expressions-and-statements)
-    *   [Pet Peeves](#pet-peeves)
+    *   [模块等级名称修饰duders](#模块等级名称修饰duders)
+*   [字符串的引号](字符串的引号)
+*   [语句、表达式中的空格](#语句、表达式中的空格)
+    *   [空格的小烦恼](#空格的小烦恼)
     *   [Other Recommendations](#other-recommendations)
 *   [When to Use Trailing Commas](#when-to-use-trailing-commas)
 *   [Comments](#comments)
@@ -50,7 +50,7 @@ PEP 8 -- Python编码风格指南
         *   [Designing for Inheritance](#designing-for-inheritance)
     *   [Public and Internal Interfaces](#public-and-internal-interfaces)
 *   [Programming Recommendations](#programming-recommendations)
-    *   [Function Annotations](#function-annotations)
+    *   [函数注释](#函数注释)
     *   [Variable Annotations](#variable-annotations)
 *   [References](#references)
 *   [Copyright](#copyright)
@@ -97,7 +97,7 @@ Yes:
 推荐的：
 ```python
 # 与括号中的元素对齐
-foo = long_function\_name(var_one, var_two,
+foo = long_function_name(var_one, var_two,
                           var_three, var_four)
 
 # 可以使用更多级的缩进，来和其他内容区分开
@@ -226,7 +226,7 @@ income = (gross_wages +
           taxable_interest +
           (dividends - qualified_dividends) -
           ira_deduction -
-          student\_loan\_interest)
+          student_loan_interest)
 ```
 为了解决这个问题，数学家以及出版商使用了另一套约定。Donald Knuth再他的[《Computers and Typesetting》](https://www-cs-faculty.stanford.edu/~knuth/abcde.html)中介绍到：虽然运算是在运算符之后中断，但是显示的时候，总是在运算符之前中断。[\[3\]](#id10)
 
@@ -326,195 +326,216 @@ Python发布版中的代码，使用使用UTF-8作为编码格式（Python2使�
     
 *   应该避免使用通配符导入(from \<module\> import *),因为这样的方式，无法知道导入了什么，也即不知道命名空间中到底添加了什么。使读者和很多自动化工具产生困扰。对于通配符导入，有一种合理的使用方式，将内部API，重新定义为公共API的一部分（例如，用纯Python重写某个模块，但是事先不清楚模块哪些内容需要被重写）。使用这种方式的时候，以下关于API的指南同样适用。
     
-[Module Level Dunder Names](#id24)
+
+[模块等级 名称修饰duders](#模块等级名称修饰duders)
 ----------------------------------
+"duders"(也就是用两个下划线开头，两个下划线结尾) 例如：\_\_all\_\_,\_\_author\_\_, \_\_version\_\_ .... 定义它们的地方，应该放在模块的备注文档之后，但是在导入语句之前（除了from \_\_future\_\_ import ）。Python要求future-import需要在置顶的注释段之后，在其他任何代码之前。
 
-Module level "dunders" (i.e. names with two leading and two trailing underscores) such as \_\_all\_\_, \_\_author\_\_, \_\_version\_\_, etc. should be placed after the module docstring but before any import statements _except_ from \_\_future\_\_ imports. Python mandates that future-imports must appear in the module before any other code except docstrings:
-
+例如
+```python
 """This is the example module.
 
 This module does stuff.
 """
 
-from \_\_future\_\_ import barry\_as\_FLUFL
+from __future__ import barry_as_FLUFL
 
-\_\_all\_\_ = \['a', 'b', 'c'\]
-\_\_version\_\_ = '0.1'
-\_\_author\_\_ = 'Cardinal Biggles'
+__all__ = ['a', 'b', 'c']
+__version__ = '0.1'
+__author__ = 'Cardinal Biggles'
 
 import os
 import sys
+```
+（译者：duders 的用处主要在使变量私有，以及避免方法与父类重名。经常出现在内建变量中）
 
-[String Quotes](#id25)
+[字符串的引号](#字符串的引号)
 ======================
+Python中，双引号和单引号的字符串是一样的。但是本文是不建议混用的。确定一种习惯的规则，统一使用一种方式。但是，当字符串中包含单引号或者双引号的时候，可是直接使用反斜杠来转译，为了提高可读性（只包含单引号或者只包含双引号时），也可以使用一种来包含另一种，这样就不需要反斜杠转译了。
 
-In Python, single-quoted strings and double-quoted strings are the same. This PEP does not make a recommendation for this. Pick a rule and stick to it. When a string contains single or double quote characters, however, use the other one to avoid backslashes in the string. It improves readability.
+三引号的使用规范与双引号的约定一致。相关文档字符串规定参见[Python文档字符串约定PEP257](https://www.python.org/dev/peps/pep-0257/)
 
-For triple-quoted strings, always use double quote characters to be consistent with the docstring convention in [PEP 257](/dev/peps/pep-0257).
-
-[Whitespace in Expressions and Statements](#id26)
+[语句、表达式中的空格](#语句、表达式中的空格)
 =================================================
 
-[Pet Peeves](#id27)
+[空格的小烦恼](#id27)
 -------------------
 
-Avoid extraneous whitespace in the following situations:
+在以下情况中，空格的使用需要格外注意:
 
-*   Immediately inside parentheses, brackets or braces.
+*   在各种括号的相邻位置。
+    * 推荐的：
+        ```python
+        spam(ham[1], {eggs: 2})
+        ```
+    * 不推荐的：
+        ```python
+        spam( ham[ 1 ], { eggs: 2 } )
+        ```
     
-    Yes: spam(ham\[1\], {eggs: 2})
-    No:  spam( ham\[ 1 \], { eggs: 2 } )
     
-*   Between a trailing comma and a following close parenthesis.
+*   逗号和又括号之间.（译者：其实是上面的一种特殊情况）
+    * 推荐的：
+        ```python
+        foo = (0,)
+        ```
+    * 不推荐的：
+        ```python
+        bar = (0, )
+        ```
     
-    Yes: foo = (0,)
-    No:  bar = (0, )
-    
-*   Immediately before a comma, semicolon, or colon:
-    
-    Yes: if x == 4: print x, y; x, y = y, x
-    No:  if x == 4 : print x , y ; x , y = y , x
-    
-*   However, in a slice the colon acts like a binary operator, and should have equal amounts on either side (treating it as the operator with the lowest priority). In an extended slice, both colons must have the same amount of spacing applied. Exception: when a slice parameter is omitted, the space is omitted.
-    
-    Yes:
-    
-    ham\[1:9\], ham\[1:9:3\], ham\[:9:3\], ham\[1::3\], ham\[1:9:\]
-    ham\[lower:upper\], ham\[lower:upper:\], ham\[lower::step\]
-    ham\[lower+offset : upper+offset\]
-    ham\[: upper\_fn(x) : step\_fn(x)\], ham\[:: step_fn(x)\]
-    ham\[lower + offset : upper + offset\]
-    
-    No:
-    
-    ham\[lower + offset:upper + offset\]
-    ham\[1: 9\], ham\[1 :9\], ham\[1:9 :3\]
-    ham\[lower : : upper\]
-    ham\[ : upper\]
-    
-*   Immediately before the open parenthesis that starts the argument list of a function call:
-    
-    Yes: spam(1)
-    No:  spam (1)
-    
-*   Immediately before the open parenthesis that starts an indexing or slicing:
-    
-    Yes: dct\['key'\] = lst\[index\]
-    No:  dct \['key'\] = lst \[index\]
-    
-*   More than one space around an assignment (or other) operator to align it with another.
-    
-    Yes:
-    
-    x = 1
-    y = 2
-    long_variable = 3
-    
-    No:
-    
-    x             = 1
-    y             = 2
-    long_variable = 3
-    
+*   逗号、冒号、分号的左侧:
+    * 推荐的：
+        ```python
+        if x == 4: print x, y; x, y = y, x
+        ```
+    * 不推荐的：
+        ```python
+        if x == 4 : print x , y ; x , y = y , x
+        ```
+* 在切片中，冒号应该被当作一个运算符（最低优先级运算符）来看待。冒号左右的空格，应该与其他运算符保持一致。在扩展切片中（使用两个冒号的情况），两个冒号左右的空格规则应该保持一致。除非：缺少一个参数的时，该参数左右的冒号之间，空格应该被省略。
+    * 推荐的：
+        ```python
+        ham[1:9], ham[1:9:3], ham[:9:3], ham[1::3], ham[1:9:]
+        ham[lower:upper], ham[lower:upper:], ham[lower::step]
+        ham[lower+offset : upper+offset]
+        ham[: upper_fn(x) : step_fn(x)], ham[:: step_fn(x)]
+        ham[lower + offset : upper + offset]
+        ```
+    * 不推荐的：
+        ```python
+        ham[lower + offset:upper + offset]
+        ham[1: 9], ham[1 :9], ham[1:9 :3]
+        ham[lower : : upper]
+        ham[ : upper]
+        ```
+*   调用函数及方法的左括号的左侧:
+    * 推荐的：
+        ```python
+        spam(1)
+        ```
+    * 不推荐的：
+        ```python
+        spam (1)
+        ```
 
-[Other Recommendations](#id28)
+    
+*   索引和切片的左括号的左侧(译者：这里并没有举出切片的例子，但是之前专门的切片说明中有相关例子):
+    * 推荐的：
+        ```python
+        dct['key'] = lst[index]
+        ```
+    * 不推荐的：
+        ```python
+        sdct ['key'] = lst [index]
+        ```
+    
+*   不要使用多个空格让多个表达式或赋值语句的左右内容在列上保持一致.
+    * 推荐的：
+        ```python
+        x = 1
+        y = 2
+        long_variable = 3
+        ```
+    * 不推荐的：
+        ```python
+        x             = 1
+        y             = 2
+        long_variable = 3
+        ```
+
+[其他建议](#其他建议)
 ------------------------------
+* 不要在语句的尾部使用空格。因为他们是不可见的，而且容易被混淆。比如：反斜杠之后的空格，换行时相关内容是不被承认的。有的编辑器都不承认他们（比如CPython）
 
-*   Avoid trailing whitespace anywhere. Because it's usually invisible, it can be confusing: e.g. a backslash followed by a space and a newline does not count as a line continuation marker. Some editors don't preserve it and many projects (like CPython itself) have pre-commit hooks that reject it.
-    
-*   Always surround these binary operators with a single space on either side: assignment (=), augmented assignment (+=, -= etc.), comparisons (==, <, >, !=, <>, <=, >=, in, not in, is, is not), Booleans (and, or, not).
-    
-*   If operators with different priorities are used, consider adding whitespace around the operators with the lowest priority(ies). Use your own judgment; however, never use more than one space, and always have the same amount of whitespace on both sides of a binary operator.
-    
-    Yes:
-    
-    i = i + 1
-    submitted += 1
-    x = x*2 - 1
-    hypot2 = x\*x + y\*y
-    c = (a+b) * (a-b)
-    
-    No:
-    
-    i=i+1
-    submitted +=1
-    x = x * 2 - 1
-    hypot2 = x * x + y * y
-    c = (a + b) * (a - b)
-    
-*   Function annotations should use the normal rules for colons and always have spaces around the -> arrow if present. (See [Function Annotations](#function-annotations) below for more about function annotations.)
-    
-    Yes:
-    
-    def munge(input: AnyStr): ...
-    def munge() -> AnyStr: ...
-    
-    No:
-    
-    def munge(input:AnyStr): ...
-    def munge()->PosInt: ...
-    
-*   Don't use spaces around the = sign when used to indicate a keyword argument, or when used to indicate a default value for an _unannotated_ function parameter.
-    
-    Yes:
-    
-    def complex(real, imag=0.0):
-        return magic(r=real, i=imag)
-    
-    No:
-    
-    def complex(real, imag = 0.0):
-        return magic(r = real, i = imag)
-    
-    When combining an argument annotation with a default value, however, do use spaces around the = sign:
-    
-    Yes:
-    
-    def munge(sep: AnyStr = None): ...
-    def munge(input: AnyStr, sep: AnyStr = None, limit=1000): ...
-    
-    No:
-    
-    def munge(input: AnyStr=None): ...
-    def munge(input: AnyStr, limit = 1000): ...
-    
-*   Compound statements (multiple statements on the same line) are generally discouraged.
-    
-    Yes:
-    
-    if foo == 'blah':
-        do\_blah\_thing()
-    do_one()
-    do_two()
-    do_three()
-    
-    Rather not:
-    
-    if foo == 'blah': do\_blah\_thing()
-    do\_one(); do\_two(); do_three()
-    
-*   While sometimes it's okay to put an if/for/while with a small body on the same line, never do this for multi-clause statements. Also avoid folding such long lines!
-    
-    Rather not:
-    
-    if foo == 'blah': do\_blah\_thing()
-    for x in lst: total += x
-    while t < 10: t = delay()
-    
-    Definitely not:
-    
-    if foo == 'blah': do\_blah\_thing()
-    else: do\_non\_blah_thing()
-    
-    try: something()
-    finally: cleanup()
-    
-    do\_one(); do\_two(); do_three(long, argument,
-                                 list, like, this)
-    
-    if foo == 'blah': one(); two(); three()
-    
+* 在运算符的左右，使用一个空格：赋值（=），增广赋值(+=,-=...),比较(=、<、>、!=、<>、<=、>=、in、not in、is、is not),布尔运算符(and, or, not)
 
+* 如果使用不同优先级的运算符，根据情况在低优先级的表达式左右添加空格。主要靠自己的判断，但是，不要使用多个空格，而且要保证语句运算符左右的空格是一致的。
+    * 推荐的：
+        ```python
+        i = i + 1
+        submitted += 1
+        x = x*2 - 1
+        hypot2 = x\*x + y\*y
+        c = (a+b) * (a-b)
+        ```
+    * 不推荐的：
+        ```python
+        i=i+1
+        submitted +=1
+        x = x * 2 - 1
+        hypot2 = x * x + y * y
+        c = (a + b) * (a - b)
+        ```
+* 函数、方法的注释，应该遵循冒号的一般规则。并且在箭头左右留有空格。（更多内容参见[函数注释](#函数注释)）(译者：以下的内容均是注释语句，并不是Python的代码)
+    * 推荐的：
+        ```python
+        方法注释
+        def munge(input: AnyStr): ...
+        def munge() -> AnyStr: ...
+        ```
+    * 不推荐的：
+        ```python
+        def munge(input:AnyStr): ...
+        def munge()->PosInt: ...
+        ```
+* 当使用kwargs的时候，（例如:def func(key=value)），不要在等号两边留空，或者在有默认值的入参(例如:def func(value=0.0))，等号两边也不要留空。
+    * 推荐的：
+        ```python
+        def complex(real, imag=0.0):
+            return magic(r=real, i=imag)
+        ```
+    * 不推荐的：
+        ```python
+        def complex(real, imag = 0.0):
+            return magic(r = real, i = imag)
+        ```
+    注释中，有默认值的入参，需要在等号的两边留空（译者：以下都是注释，不是Python代码,limit=100的空格使用原文如此）：
+    * 推荐的：
+        ```python
+        def munge(sep: AnyStr = None): ...
+        def munge(input: AnyStr, sep: AnyStr = None, limit=1000): ...
+        ```
+    * 不推荐的：
+        ```python
+        def munge(input: AnyStr=None): ...
+        def munge(input: AnyStr, limit = 1000): ...
+        ```
+*   不推荐使用复合语句（同一行存在多条语句）.
+    * 推荐的：
+        ```python
+        if foo == 'blah':
+        do_blah_thing()
+        do_one()
+        do_two()
+        do_three()
+        ```
+    * 不推荐的：
+        ```python
+        if foo == 'blah': do_blah_thing()
+        do_one(); do_two(); do_three()
+        ```
+* 虽然有时候将if/for/while和之后的执行语句放在同一行是可以的。但是如果语句过多，千万不要这样。折叠语句的时候会让显示的语句过长。
+    
+    * 不推荐的：
+        ```python
+        if foo == 'blah': do_blah_thing()
+        for x in lst: total += x
+        while t < 10: t = delay()
+        ```
+    * 绝对不要：
+        ```python
+        if foo == 'blah': do_blah_thing()
+        else: do_non_blah_thing()
+        
+        try: something()
+        finally: cleanup()
+        
+        do_one(); do_two(); do_three(long, argument,
+                                     list, like, this)
+        
+        if foo == 'blah': one(); two(); three()
+        ```
 [When to Use Trailing Commas](#id29)
 ====================================
 
@@ -963,7 +984,7 @@ Imported names should always be considered an implementation detail. Other modul
     Worse: if greeting is True:
     
 
-[Function Annotations](#id52)
+[函数注释](#函数注释)
 -----------------------------
 
 With the acceptance of [PEP 484](/dev/peps/pep-0484), the style rules for function annotations are changing.
