@@ -24,5 +24,4 @@
 ||563|[Python推迟评估类型注释](https://github.com/liufeng3486/Documents/blob/master/Python/PEPs/3.7/Python%20%E6%8E%A8%E8%BF%9F%E8%AF%84%E4%BC%B0%E7%B1%BB%E5%9E%8B%E6%B3%A8%E9%87%8A.md) ||[Postponed Evaluation of Annotations](https://www.python.org/dev/peps/pep-563/)|翻译中|
 ||564|[Python支持纳秒的时间函数](https://github.com/liufeng3486/Documents/blob/master/Python/PEPs/3.7/Python%20%E6%94%AF%E6%8C%81%E7%BA%B3%E7%A7%92%E7%9A%84%E6%97%B6%E9%97%B4%E5%87%BD%E6%95%B0.md) ||[Add new time functions with nanosecond resolution](https://www.python.org/dev/peps/pep-564/)|翻译中|
 ||565|[Python__main__中显示弃用报警](https://github.com/liufeng3486/Documents/blob/master/Python/PEPs/3.7/Python%20__main__%E4%B8%AD%E6%98%BE%E7%A4%BA%E5%BC%83%E7%94%A8%E6%8A%A5%E8%AD%A6.md) ||[Show DeprecationWarning in __main__](https://www.python.org/dev/peps/pep-565/)|翻译中|
-||567|[Python新增模块contextvars](https://github.com/liufeng3486/Documents/blob/master/Python/PEPs/3.7/Python%E6%96%B0%E5%A2%9E%E6%A8%A1%E5%9D%97contextvars.md
-) ||[Context Variables](https://www.python.org/dev/peps/pep-567/)|翻译中|
+||567|[Python新增模块contextvars](https://github.com/liufeng3486/Documents/blob/master/Python/PEPs/3.7/Python%E6%96%B0%E5%A2%9E%E6%A8%A1%E5%9D%97contextvars.md) ||[Context Variables](https://www.python.org/dev/peps/pep-567/)|翻译中|
