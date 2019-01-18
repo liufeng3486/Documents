@@ -44,7 +44,7 @@
             + [``PEP 221 -- Import As导入为``](https://github.com/liufeng3486/Documents/blob/master/Python/PEPs/SF/Python%E5%AF%BC%E5%85%A5%E4%B8%BAImport%20As.md)
             + [``PEP 217 -- Python交互式显示钩子``](https://github.com/liufeng3486/Documents/blob/master/Python/PEPs/SF/Python%E4%BA%A4%E4%BA%92%E5%BC%8F%E6%98%BE%E7%A4%BA%E9%92%A9%E5%AD%90.md)
             + [``PEP 260 -- Python简化xrange()``](https://github.com/liufeng3486/Documents/blob/master/Python/PEPs/SF/Python%E7%AE%80%E5%8C%96xrange().md)
-            + [PEP 569 -- Python3.8发布时间表](https://github.com/liufeng3486/Documents/blob/master/Python/PEPs/I/Python3.8%E5%8F%91%E5%B8%83%E6%97%B6%E9%97%B4%E8%A1%A8.md)
+            + [``PEP 569 -- Python3.8发布时间表``](https://github.com/liufeng3486/Documents/blob/master/Python/PEPs/I/Python3.8%E5%8F%91%E5%B8%83%E6%97%B6%E9%97%B4%E8%A1%A8.md)
     +  Web框架
         + Django
             + 介绍与安装
