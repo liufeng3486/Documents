@@ -53,7 +53,7 @@
                 + [PEP 538 -- Python CPython强制编码格式UTF-8](https://github.com/liufeng3486/Documents/blob/master/Python/PEPs/3.7/Python%20CPython%E5%BC%BA%E5%88%B6%E7%BC%96%E7%A0%81%E6%A0%BC%E5%BC%8FUTF-8.md) 
                 + [PEP 539 -- Python CPython中TLS API 更新](https://github.com/liufeng3486/Documents/blob/master/Python/PEPs/3.7/Python%20CPython%E4%B8%ADTLS%20API%20%E6%9B%B4%E6%96%B0.md) 
                 + [PEP 540 -- Python UTF-8模式](https://github.com/liufeng3486/Documents/blob/master/Python/PEPs/3.7/Python%20UTF-8%E6%A8%A1%E5%BC%8F.md) 
-                + [PEP 552 -- Python pycs增加确定性](https://github.com/liufeng3486/Documents/blob/master/Python/PEPs/3.7/Python%20pycs%E5%A2%9E%E5%8A%A0%E7%A1%AE%E5%AE%9A%E6%80%A7.md) 
+                + [PEP 552 -- Python pycs增强一致性](https://github.com/liufeng3486/Documents/blob/master/Python/PEPs/3.7/Python%20Python%20pycs%E5%A2%9E%E5%BC%BA%E4%B8%80%E8%87%B4%E6%80%A7.md) 
                 + [PEP 553 -- Python新增内建函数breakpoint()](https://github.com/liufeng3486/Documents/blob/master/Python/PEPs/3.7/Python%20%E6%96%B0%E5%A2%9E%E5%86%85%E5%BB%BA%E5%87%BD%E6%95%B0breakpoint().md) 
                 + [PEP 557 -- Python新增装饰器@dataclasses](https://github.com/liufeng3486/Documents/blob/master/Python/PEPs/3.7/%E6%96%B0%E5%A2%9E%E8%A3%85%E9%A5%B0%E5%99%A8%40dataclasses.md)
                 + [PEP 560 -- Python Cpython支持类型模块和泛型](https://github.com/liufeng3486/Documents/blob/master/Python/PEPs/3.7/Python%20Cpython%E6%94%AF%E6%8C%81%E7%B1%BB%E5%9E%8B%E6%A8%A1%E5%9D%97%E5%92%8C%E6%B3%9B%E5%9E%8B.md) 
