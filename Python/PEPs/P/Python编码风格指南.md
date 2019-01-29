@@ -39,14 +39,14 @@ PEP 8 -- Python编码风格指南
         *   [需要避免使用的](#需要避免使用的)
         *   [ASCII兼容性](#ASCII兼容性)
         *   [包及模块的命名](#包及模块的命名)
-        *   [Class Names](#class-names)
-        *   [Type Variable Names](#type-variable-names)
-        *   [Exception Names](#exception-names)
-        *   [Global Variable Names](#global-variable-names)
-        *   [Function and Variable Names](#function-and-variable-names)
-        *   [Function and Method Arguments](#function-and-method-arguments)
-        *   [Method Names and Instance Variables](#method-names-and-instance-variables)
-        *   [Constants](#constants)
+        *   [类的命名](#类的命名)
+        *   [类型变量命名](#类型变量命名)
+        *   [异常命名](#异常命名)
+        *   [全局变量命名](#全局变量命名)
+        *   [方法及变量名](#方法及变量名)
+        *   [方法及函数的参数](#方法及函数的参数)
+        *   [函数名与实例变量](#函数名与实例变量)
+        *   [常量](#常量)
         *   [Designing for Inheritance](#designing-for-inheritance)
     *   [Public and Internal Interfaces](#public-and-internal-interfaces)
 *   [Programming Recommendations](#programming-recommendations)
@@ -688,7 +688,7 @@ X11库中的所有公共方法，也以x开头。但是在Python中，这种做�
 
 模块名应该简短，且全小写。为了增加可读性，可以使用下划线分隔单词。Python的包名也应该是简短、全小写。但是不建议使用下划线分隔。
 
-当使用C或者C++编写的Pyhon拓展模块中，提供的更高级别接口（例如：更加面向对象）：C/C\+\+的模块会增加一个前置下划线(例如:_socket)。
+在使用C或者C++编写的Pyhon拓展模块中，提供的更高级别接口（例如：更加面向对象）：C/C\+\+的模块会增加一个前置下划线(例如:_socket)。
 
 ### [类的命名](#类的命名)
 
@@ -700,7 +700,7 @@ X11库中的所有公共方法，也以x开头。但是在Python中，这种做�
 
 ### [类型变量命名](#类型变量命名)
 
-类型变量的命名在 [PEP 484](https://www.python.org/dev/peps/pep-0484/)中提到，使用缩写单词的大驼峰命名法，例如： T, AnyStr, Num。类型变量如果具有协变或者逆变的行为，建议在结尾加上_co和_contra以作区分:
+类型变量的命名在 [PEP 484](https://www.python.org/dev/peps/pep-0484/)中提到，使用缩写单词的大驼峰命名法，例如： T, AnyStr, Num。类型变量如果具有协变或者逆变的行为（译者：其实就是强类型语言中泛型的上下边界，比如java的extends和super），建议在结尾加上_co和_contra以作区分:
 ```python
 from typing import TypeVar
 
@@ -738,15 +738,15 @@ KT_contra = TypeVar('KT_contra', contravariant=True)
 
 非公有的函数及实例变量使用一个前置下划线与其他内容区分。
 
-To avoid name clashes with subclasses, use two leading underscores to invoke Python's name mangling rules.
+为了避免与子类中的名称冲突，或者不希望被子类所调用。也可以当做私有的函数或者变量。可以使用前置的双下划线进行命名。
 
-Python mangles these names with the class name: if class Foo has an attribute named __a, it cannot be accessed by Foo.__a. (An insistent user could still gain access by calling Foo.\_Foo\_\_a.) Generally, double leading underscores should be used only to avoid name conflicts with attributes in classes designed to be subclassed.
+Python使用类名对这种名称进行了重新整理：比如在类Foo中，有一个属性为\_\_a，这个属性是私有的，它的实例或者子类是不同通过Foo.\_\_a的方式来调用它的。(较真的话，其实还是可以通过Foo._Foo\_\_a的方式调用到它的。)通常前置的双下划线只用于避免名称冲突和设计中用来避免与子类的冲突。
 
-Note: there is some controversy about the use of __names (see below).
+注意：关于前置双下划线的使用还是存在一些争议的（详见下文）。
 
-### [Constants](#id48)
+### [常量](#id48)
 
-Constants are usually defined on a module level and written in all capital letters with underscores separating words. Examples include MAX_OVERFLOW and TOTAL.
+常见一般在模块级别中定义，使用全大写字母命名，使用下划线分隔单词。比如：MAX_OVERFLOW、TOTAL。
 
 ### [Designing for Inheritance](#id49)
 
