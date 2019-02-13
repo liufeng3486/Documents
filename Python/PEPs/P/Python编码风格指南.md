@@ -47,7 +47,7 @@ PEP 8 -- Python编码风格指南
         *   [方法及函数的参数](#方法及函数的参数)
         *   [函数名与实例变量](#函数名与实例变量)
         *   [常量](#常量)
-        *   [Designing for Inheritance](#designing-for-inheritance)
+        *   [继承的设计](#继承的设计)
     *   [Public and Internal Interfaces](#public-and-internal-interfaces)
 *   [Programming Recommendations](#programming-recommendations)
     *   [函数注释](#函数注释)
@@ -716,7 +716,7 @@ KT_contra = TypeVar('KT_contra', contravariant=True)
 
 从 from M import * 的导入机制中使用到 \_\_all\_\_可以看出，它本身是不建议导出模块中的全局变量的。也有使用者习惯使用下划线作为某个模块中私有的全局变量标识（表明这个全局变量其他模块不要导入或使用）。
 
-### [方法及变量名](#id45)
+### [方法及变量名](#方法及变量名)
 
 方法名应该是全小写，可以使用下划线分隔单词来提高可读性。
 
@@ -724,7 +724,7 @@ KT_contra = TypeVar('KT_contra', contravariant=True)
 
 类似于mixedCase的小驼峰式命名只建议在，为了保证旧有项目的向下兼容性时使用（例如 threading.py）。
 
-### [方法及函数的参数](#id46)
+### [方法及函数的参数](#方法及函数的参数)
 
 使用self作为实例方法的第一个参数。
 
@@ -732,7 +732,7 @@ KT_contra = TypeVar('KT_contra', contravariant=True)
 
 如果方法的参数与关键字冲突，通常使用后置下划线以作区分，而不建议使用缩写或者通假字,比如参数名是class时，可以使用class_,而不建议使用clss。(如果能使用近义词或者其他方式来避免这种冲突是最好的。)
 
-### [函数名与实例变量](#id47)
+### [函数名与实例变量](#函数名与实例变量)
 
 使用方法名的规则：全小写，可以使用下划线分隔单词来提高可读性。
 
@@ -744,45 +744,44 @@ Python使用类名对这种名称进行了重新整理：比如在类Foo中，�
 
 注意：关于前置双下划线的使用还是存在一些争议的（详见下文）。
 
-### [常量](#id48)
+### [常量](#常量)
 
 常见一般在模块级别中定义，使用全大写字母命名，使用下划线分隔单词。比如：MAX_OVERFLOW、TOTAL。
 
-### [Designing for Inheritance](#id49)
+### [继承的设计](#继承的设计)
 
-Always decide whether a class's methods and instance variables (collectively: "attributes") should be public or non-public. If in doubt, choose non-public; it's easier to make it public later than to make a public attribute non-public.
+首先需要确定的是，类的函数和实例变量（二者统称："属性"）是否是公共的，即``public or non-public``。如果不是很确定，那就使用非公共。因为将一个非公共属性设置为公共属性是比较简单的，反之则相对麻烦。
 
-Public attributes are those that you expect unrelated clients of your class to use, with your commitment to avoid backwards incompatible changes. Non-public attributes are those that are not intended to be used by third parties; you make no guarantees that non-public attributes won't change or even be removed.
+公共属性是预期中会被第三方使用的属性，可以使用委托机制来解决向后兼容的问题（译者：就是使用\_\_getattr\_\_）。非公开属性是预期中不会被第三方使用的；当然，非公开属性被强行更改或删除的情况也是存在的。
 
-We don't use the term "private" here, since no attribute is really private in Python (without a generally unnecessary amount of work).
+在这里，我们没有使用“私有”这个词，是因为在Python中没有真正意义上的私有属性。（为了减少大量非必须的常规工作量）
 
-Another category of attributes are those that are part of the "subclass API" (often called "protected" in other languages). Some classes are designed to be inherited from, either to extend or modify aspects of the class's behavior. When designing such a class, take care to make explicit decisions about which attributes are public, which are part of the subclass API, and which are truly only to be used by your base class.
+另一种属性是属于"subclass API"(在其他语言中一般称之为"protected")。一些类设计为需要被继承，用来拓展和修改类的属性或行为。当设计这样一个类的时候，需要注意哪些属性是公共的，哪些属性是给集成它的子类使用的，哪些是基类使用的。
 
-With this in mind, here are the Pythonic guidelines:
+关于这一点，以下是Python的指南：
 
-*   Public attributes should have no leading underscores.
-    
-*   If your public attribute name collides with a reserved keyword, append a single trailing underscore to your attribute name. This is preferable to an abbreviation or corrupted spelling. (However, notwithstanding this rule, 'cls' is the preferred spelling for any variable or argument which is known to be a class, especially the first argument to a class method.)
-    
-    Note 1: See the argument name recommendation above for class methods.
-    
-*   For simple public data attributes, it is best to expose just the attribute name, without complicated accessor/mutator methods. Keep in mind that Python provides an easy path to future enhancement, should you find that a simple data attribute needs to grow functional behavior. In that case, use properties to hide functional implementation behind simple data attribute access syntax.
-    
-    Note 1: Properties only work on new-style classes.
-    
-    Note 2: Try to keep the functional behavior side-effect free, although side-effects such as caching are generally fine.
-    
-    Note 3: Avoid using properties for computationally expensive operations; the attribute notation makes the caller believe that access is (relatively) cheap.
-    
-*   If your class is intended to be subclassed, and you have attributes that you do not want subclasses to use, consider naming them with double leading underscores and no trailing underscores. This invokes Python's name mangling algorithm, where the name of the class is mangled into the attribute name. This helps avoid attribute name collisions should subclasses inadvertently contain attributes with the same name.
-    
-    Note 1: Note that only the simple class name is used in the mangled name, so if a subclass chooses both the same class name and attribute name, you can still get name collisions.
-    
-    Note 2: Name mangling can make certain uses, such as debugging and \_\_getattr\_\_(), less convenient. However the name mangling algorithm is well documented and easy to perform manually.
-    
-    Note 3: Not everyone likes name mangling. Try to balance the need to avoid accidental name clashes with potential use by advanced callers.
-    
+*   公共属性不要使用前置下划线。
 
+*   如果公共属性的名字与保留的关键字冲突了，使用后置单下划线以示区分。尽量不要使用缩写或者使用变种的拼写方式。(虽然有着不建议使用缩写的规定，但是类方法的第一个参数，任然是"cls"虽然它是一个缩写。同时，也首选使用"cls"代表''类'，不论是变量或参数时。)
+    
+     注 1：类方法命名参见上面的函数命名规则
+
+*   对于简单的公共数据属性，最好只公开它的属性名，而不提供复杂的访问器/修改器方法。请记住，如果有简单的数据属性需要拓展方法操作，Python提供了很简单的实现途径。可以使用property函数（装饰器）来进行隐式的属性操作拓展。
+    
+    注 1：property只在新式类中才有效。（译者：新式类是python2.2引入的特性，现在一般都是新式类了，如果还不放心，type(class的实例),如果不是<type 'instance'>，那就是新式类。因为新式类需要解决的就是class与type概念的统一）
+    
+    注 2：尽量不要增加附加功能（译者：原文中是side-effect，但是在Python中指的是附作用，而不是一般语义中的副作用），尽管这些附加功能对资源损耗很小。
+    
+    注 3：由于类的函数经过property装饰器，会让用户在调用相关函数的时候，会有一种调用实例变量的感觉。会造成，调用这些属性没有什么资源消耗的错觉。所以，使用property装饰器的时候，需要避免进行过于过于复杂的操作。
+
+*   如果预期中，你的类需要被子类继承。但是基类中有一些属性，不希望被子类访问到。可以使用前置双下划线（形如\_\_funciton,千万不要\_\_funciton\_\_）。这样可以做到貌似私有属性的效果，但是它的实际做法是：将类名加一个前置下划线，变更为属性名的方式来避免子类通过常规的方式来调用它，虽然它仍然可以被调用到。这也可以用来避免子类与基类的属性同名。
+
+    注 1：只有简单的类名才使这个机制成功，如果子类的类名和属性名都相同的话，你仍然会收到名称冲突的提示。
+    
+    注 2：这种伪私有的实现机制可以被使用在 调试 和 \_\_getattr\_\_()中，虽然不是非常方便，但是有很详尽的文档，容易实现。
+
+    注 3：Python的这种伪私有实现机制，并不是所有人都喜欢。尝试着调整需求，避免因为意外造成名称冲突的潜在问题。
+    
 [Public and Internal Interfaces](#id50)
 ---------------------------------------
 
