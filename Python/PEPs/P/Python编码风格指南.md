@@ -782,133 +782,137 @@ Python使用类名对这种名称进行了重新整理：比如在类Foo中，�
 
     注 3：Python的这种伪私有实现机制，并不是所有人都喜欢。尝试着调整需求，避免因为意外造成名称冲突的潜在问题。
     
-[Public and Internal Interfaces](#id50)
+[公共接口与内部接口](#id50)
 ---------------------------------------
 
-Any backwards compatibility guarantees apply only to public interfaces. Accordingly, it is important that users be able to clearly distinguish between public and internal interfaces.
+任何向后兼容性的保证只针对于公共接口。所以，让用户可以简单清晰的区分公共接口和内部接口是很重要。
 
-Documented interfaces are considered public, unless the documentation explicitly declares them to be provisional or internal interfaces exempt from the usual backwards compatibility guarantees. All undocumented interfaces should be assumed to be internal.
+所有被文档化的接口默认都是公共的，除非是文档里明确说明了它是临时的或者内部接口，不受向后兼容性的约束。所有未文档化的接口都默认为是内部接口。
 
-To better support introspection, modules should explicitly declare the names in their public API using the \_\_all\_\_ attribute. Setting \_\_all\_\_ to an empty list indicates that the module has no public API.
+为了更好的内省，模块最好将所有公共API都使用\_\_all\_\_ 暴露出来。如果\_\_all\_\_ 是空数组的话，那模块就没有公共API。
 
-Even with \_\_all\_\_ set appropriately, internal interfaces (packages, modules, classes, functions, attributes or other names) should still be prefixed with a single leading underscore.
+及时是很好的使用了\_\_all\_\_，内部接口（包，模块，类，方法，属性及其他）都应该使用前置下划线以作区分。
 
-An interface is also considered internal if any containing namespace (package, module or class) is considered internal.
+如果接口在任何命名空间（包，模块，类）中被确定为内部的，那它就是内部接口。
 
-Imported names should always be considered an implementation detail. Other modules must not rely on indirect access to such imported names unless they are an explicitly documented part of the containing module's API, such as os.path or a package's \_\_init\_\_ module that exposes functionality from submodules.
+如何被导入应该被重视起来。任何模块不应该间接访问被导入的内容。除非它们是被模块的API文档明确记录的，比如 os.path 或者 包的\_\_init\_\_模块，这些可以暴露子模块的方式。
 
 [Programming Recommendations](#id51)
 ====================================
 
-*   Code should be written in a way that does not disadvantage other implementations of Python (PyPy, Jython, IronPython, Cython, Psyco, and such).
-    
-    For example, do not rely on CPython's efficient implementation of in-place string concatenation for statements in the form a += b or a = a + b. This optimization is fragile even in CPython (it only works for some types) and isn't present at all in implementations that don't use refcounting. In performance sensitive parts of the library, the ''.join() form should be used instead. This will ensure that concatenation occurs in linear time across various implementations.
-    
-*   Comparisons to singletons like None should always be done with is or is not, never the equality operators.
-    
-    Also, beware of writing if x when you really mean if x is not None \-\- e.g. when testing whether a variable or argument that defaults to None was set to some other value. The other value might have a type (such as a container) that could be false in a boolean context!
-    
-*   Use is not operator rather than not ... is. While both expressions are functionally identical, the former is more readable and preferred.
-    
-    Yes:
-    
+* 代码的编写不应该使用损害其他Python方式。（PyPy, Jython, IronPython, Cython, Psyco,等等）
+    例如，不要依赖CPython中对字符串连接的高效实现功能，比如 a += b 或者  a = a + b。这个功能在CPython本身中也不是非常完善（只适用于部分类型），并且实际实现的时候都是要使用到引用计数的机制的。在库中，对性能要求高的地方，使用''.join()的方式来处理。这样能保证在不同的环境运行的时候，执行时间差异少。
+
+*  对类似None这样的单例进行比较的时候，应该使用is或者is not,而不是使用等号运算符进行比较。
+
+    另外，如果你想表达的意思为 x不是None 的时候，需要格外注意。比如：当要验证一个默认值是None的变量或者参数是否被设置为其他值（比如某个容器类型）的时候，被赋的值的布尔值可能是False！
+
+
+*  使用 is not 比使用　not...is 更好。虽然二者在使用时是一样的，但是第一种更便于阅读。
+
+    推荐的：
+    ```python
     if foo is not None:
-    
-    No:
-    
+    ```
+    不推荐的
+    ```python
     if not foo is None:
+    ```
+*  当需要实现复杂的排序操作的时候，最好将六个基础功能全部实现（\_\_eq\_\_, \_\_ne\_\_, \_\_lt\_\_, \_\_le\_\_, \_\_gt\_\_, \_\_ge\_\_）(译者:其实用运算符表示就是 =,!=,<,<=,>,>=)。而不是只写自己需要的特定比较功能。
     
-*   When implementing ordering operations with rich comparisons, it is best to implement all six operations (\_\_eq\_\_, \_\_ne\_\_, \_\_lt\_\_, \_\_le\_\_, \_\_gt\_\_, \_\_ge\_\_) rather than relying on other code to only exercise a particular comparison.
-    
-    To minimize the effort involved, the functools.total_ordering() decorator provides a tool to generate missing comparison methods.
-    
-    [PEP 207](/dev/peps/pep-0207) indicates that reflexivity rules _are_ assumed by Python. Thus, the interpreter may swap y > x with x < y, y >= x with x <= y, and may swap the arguments of x == y and x != y. The sort() and min() operations are guaranteed to use the < operator and the max() function uses the > operator. However, it is best to implement all six operations so that confusion doesn't arise in other contexts.
-    
-*   Always use a def statement instead of an assignment statement that binds a lambda expression directly to an identifier.
-    
-    Yes:
-    
+    为了最小化影响面，装饰器functools.total_ordering()提供了简单的方式来重写比较功能。
+    [PEP 207](/dev/peps/pep-0207)中提出在Python中的自反性规则。例如，解释器会将 y > x 和 x < y,y >= x 和 x <=y , x == y 和 x!= y 进行交换。sort()和min()方法会使用到<，max()方法会使用到>。所以，最好实现全部留个基础功能，避免缺少基础功能造成的问题。
+
+*  使用def来定义标识符相关方法，而不是使用lambda函数
+    推荐的：
+    ```python
     def f(x): return 2*x
-    
-    No:
-    
+    ```
+    不推荐的
+    ```python
     f = lambda x: 2*x
+    ```
     
-    The first form means that the name of the resulting function object is specifically 'f' instead of the generic '<lambda>'. This is more useful for tracebacks and string representations in general. The use of the assignment statement eliminates the sole benefit a lambda expression can offer over an explicit def statement (i.e. that it can be embedded inside a larger expression)
+    第一种形式意味着获得的是方法'f'而不是通用的`lambda`。这在一般的追溯和字符串表示中会更加方便。将lambda语句进行赋值的方式，将lambda语句相较于显示def方法的优势磨灭了（lambda语句可以被更大的语句所嵌套。）
+
+*  自定义异常的时候继承Exception比继承BaseException更好。BaseException是为那些不应该被用户手动捕捉的异常所继承的。
+
+    在设计异常的时候，应该基于需要被处理的异常，而不是异常产生的位置。目的是通过编程回答“出了什么问题？”，而不是“出现了问题”。（参见[PEP 3151](/dev/peps/pep-3151)内建的异常层级结构中学到的教训。）
     
-*   Derive exceptions from Exception rather than BaseException. Direct inheritance from BaseException is reserved for exceptions where catching them is almost always the wrong thing to do.
+    异常的命名规则与类名的规则一致，如果异常是一个错误的话，需要在结尾加上"Error"来表示这是一个异常类。非错误类的异常比如用作非本地数据流控制或其他的非错误类异常，则不需要加上"Error"。
+
+*  适当的使用异常关联。在Python3中,"raise X from Y"被用来进行显式的异常替换，且不会丢失原来的异常。
+
+    当替换内部异常时（Python2:raise X ;Python3:raise X from None），需要确保原有异常的相关细节都被新异常所保留。（比如使用AttributeError替换KeyError时,要保留找不到的对象属性名，或者将所有原异常的错误信息都嵌入到新异常中。）
+
+*  当在Python2中抛出异常时，使用 raise ValueError('message')的方式来替换旧有的 raise ValueError,'message'方式。
     
-    Design exception hierarchies based on the distinctions that code _catching_ the exceptions is likely to need, rather than the locations where the exceptions are raised. Aim to answer the question "What went wrong?" programmatically, rather than only stating that "A problem occurred" (see [PEP 3151](/dev/peps/pep-3151) for an example of this lesson being learned for the builtin exception hierarchy)
+    后一种在Python3中并不支持。
     
-    Class naming conventions apply here, although you should add the suffix "Error" to your exception classes if the exception is an error. Non-error exceptions that are used for non-local flow control or other forms of signaling need no special suffix.
-    
-*   Use exception chaining appropriately. In Python 3, "raise X from Y" should be used to indicate explicit replacement without losing the original traceback.
-    
-    When deliberately replacing an inner exception (using "raise X" in Python 2 or "raise X from None" in Python 3.3+), ensure that relevant details are transferred to the new exception (such as preserving the attribute name when converting KeyError to AttributeError, or embedding the text of the original exception in the new exception message).
-    
-*   When raising an exception in Python 2, use raise ValueError('message') instead of the older form raise ValueError, 'message'.
-    
-    The latter form is not legal Python 3 syntax.
-    
-    The paren-using form also means that when the exception arguments are long or include string formatting, you don't need to use line continuation characters thanks to the containing parentheses.
-    
-*   When catching exceptions, mention specific exceptions whenever possible instead of using a bare except: clause:
-    
+    使用第一种参数的方式，意味着当参数过长或者包含的字符串格式的话，因为有括号的存在，所以用户不需要使用行连接符。
+
+*  当捕捉异常的时候，尽量提及具体的异常内容，而不是使用简单的 except：子句。
+
+    ```python    
     try:
-        import platform\_specific\_module
+        import platform_specific_module
     except ImportError:
-        platform\_specific\_module = None
+        platform_specific_module = None
+    ```
+
+    不指定异常类进行捕捉的except语句：将捕捉SystemExit和KeyboardInterrupt的异常，会使通过组合键（Control-C）中断程序的方式出现问题。也可能会掩盖住其他问题。如果你想捕捉所有程序发出的异常信号，使用except Exception：（不指定捕捉异常类的except语句相当于except BaseException：）。
     
-    A bare except: clause will catch SystemExit and KeyboardInterrupt exceptions, making it harder to interrupt a program with Control-C, and can disguise other problems. If you want to catch all exceptions that signal program errors, use except Exception: (bare except is equivalent to except BaseException:).
+    经验之谈，只有两种情况下使用使用空'except'语句：
     
-    A good rule of thumb is to limit use of bare 'except' clauses to two cases:
-    
-    1.  If the exception handler will be printing out or logging the traceback; at least the user will be aware that an error has occurred.
-    2.  If the code needs to do some cleanup work, but then lets the exception propagate upwards with raise. try...finally can be a better way to handle this case.
-*   When binding caught exceptions to a name, prefer the explicit name binding syntax added in Python 2.6:
-    
-    try:
-        process_data()
-    except Exception as exc:
-        raise DataProcessingFailedError(str(exc))
-    
-    This is the only syntax supported in Python 3, and avoids the ambiguity problems associated with the older comma-based syntax.
-    
-*   When catching operating system errors, prefer the explicit exception hierarchy introduced in Python 3.3 over introspection of errno values.
-    
-*   Additionally, for all try/except clauses, limit the try clause to the absolute minimum amount of code necessary. Again, this avoids masking bugs.
-    
-    Yes:
-    
-    try:
-        value = collection\[key\]
+    1. 如果异常处理程序用来打印错误内容或用来记录相关日志；或者只是为了让用户知道发生了什么错误。
+    2. 如果代码需要做清理的工作，让异常通过语句传递给上一层处理。try...finally很适合处理这样的案例。
+
+
+*   当将异常绑定到某个异常子类的时候，使用Python2.6新增加的显示方式:
+    ```python
+        try:
+            process_data()
+        except Exception as exc:
+            raise DataProcessingFailedError(str(exc))
+    ```
+    Python3只支持这样的语法，为了避免与旧版的逗号语法想冲突，请使用该语法。
+
+*  当捕捉到系统错误的时候，首选使用Python3.3新增的显示异常结构，而不是使用内省的errno值。
+
+* 此外，在所有使用到try/except语句的地方，语句所捕捉异常的区域应该是尽可能小，避免会将其他BUG遮盖住。
+    推荐的：
+    ```python
+     try:
+        value = collection[key]
     except KeyError:
-        return key\_not\_found(key)
+        return key_not_found(key)
     else:
         return handle_value(value)
-    
-    No:
-    
+    ```
+    不推荐的
+    ```python
     try:
-        # Too broad!
-        return handle_value(collection\[key\])
+        # 覆盖范围过大!
+        return handle_value(collection[key])
     except KeyError:
-        # Will also catch KeyError raised by handle_value()
-        return key\_not\_found(key)
+        # 除了collection的key异常，同样会捕捉handle_value()的入参异常。
+        return key_not_found(key)
+    ```
+
+*  当资源只使用在代码中特定的某一段时，请尽量使用with语句来确保资源在被使用后及时被关闭。也可以使用try/finally语句才进行资源的使用及关闭。
     
-*   When a resource is local to a particular section of code, use a with statement to ensure it is cleaned up promptly and reliably after use. A try/finally statement is also acceptable.
-    
-*   Context managers should be invoked through separate functions or methods whenever they do something other than acquire and release resources.
-    
-    Yes:
-    
+*  当使用上下文管理器（译者：可以简单理解为就是with语句。Python2.5加入的新关键字）时它应该获取或者释放某些资源，如果没有这样的操作，使用其他单独的方法和函数来操作。
+     推荐的：
+    ```python
     with conn.begin_transaction():
         do\_stuff\_in_transaction(conn)
-    
-    No:
-    
+    ```
+    不推荐的
+    ```python
     with conn:
         do\_stuff\_in_transaction(conn)
+    ```   
+
     
     The latter example doesn't provide any information to indicate that the \_\_enter\_\_ and \_\_exit\_\_ methods are doing something other than closing the connection after a transaction. Being explicit is important in this case.
     
