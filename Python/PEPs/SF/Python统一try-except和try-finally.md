@@ -1,7 +1,7 @@
 ## PEP 341 统一tyr-except and try-finally
 
-| PEP:| 341   |
-| --------   | -----:  |
+|PEP编号:|341|
+|:----|:----|
 | 标题：     | 统一tyr-except and try-finally|
 | 作者：      | Georg Brandl <georg at python.org>   |
 | 状态 :       |    Final   |
