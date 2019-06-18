@@ -48,5 +48,6 @@ mock 0.8引入了一个新功能“auto-speccing”，废弃了一个名为“mo
 
 ### 版权
 本文档已放在公共领域。
-资料来源：https：//github.com/python/peps/blob/master/pep-0417.txt
+
+资料来源： https：//github.com/python/peps/blob/master/pep-0417.txt
 
