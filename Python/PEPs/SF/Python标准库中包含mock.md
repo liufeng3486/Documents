@@ -40,9 +40,13 @@ mock还在测试范围内安全地处理monkeypatching和unkeypatching对象。�
 mock 0.8引入了一个新功能“auto-speccing”，废弃了一个名为“mocksignature”的旧模拟功能。在包含之前，可以完全从模拟中删除“mocksignature”功能。
 
 ### 参考
-[1] [	mock library on PyPI](https://pypi.org/project/mock/ "With a Title").
+[1] [	mock library on PyPI](https://pypi.org/project/mock/ "With a Title")
 
 [2] http://pypi.python.org/pypi?%3Aaction=search&term=mock&submit=search
 
 [3] http://bugs.python.org/issue11664
+
+### 版权
+本文档已放在公共领域。
+资料来源：https：//github.com/python/peps/blob/master/pep-0417.txt
 
