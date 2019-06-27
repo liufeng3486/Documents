@@ -12,10 +12,10 @@
 | 决议：        |    https://mail.python.org/pipermail/python-dev/2017-December/151034.html   |
 
 内容
-> * 审阅人员注意
-> * 摘要
-> * 原理
-> * 规范
++ 审阅人员注意
++ 摘要
++ 原理
++ 规范
     + Field对象
     + post-init处理
     + 类变量
@@ -25,6 +25,6 @@
     + default_factory函数
     + 可变默认值
     + 模块级辅助函数
-> * 讨论
++ 讨论
     + python-ideas讨论
     + 支持自动设置__slots__?
