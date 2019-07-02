@@ -111,3 +111,47 @@ Data Classes使您无需编写和维护这些方法。
 那么，为什么需要这个PEP？
 
 通过添加PEP 526，Python可以简洁地指定类成员的类型。此PEP利用该语法提供一种简单，不显眼的方式来描述Data Classes。除了两个例外，指定的属性类型批注被Data Classes完全忽略。
+
+Data Classes不使用基类或元类。这些类的用户可以自由地使用继承和元类，而不受Data Classes的任何干扰。修饰后的类是真正的“普通”Python类。Data Classes装饰器不应该干扰类的任何使用。
+
+Data Classes的一个主要设计目标是支持静态类型检查器。PEP 526语法的使用就是一个例子，但是fields（）函数和@dataclass装饰器的设计也是如此。由于它们的动态特性，上面提到的一些库很难与静态类型检查器一起使用。
+
+Data Classes不是，也不是所有上述库的替换机制。但是，在标准库中，将允许许多更简单的用例改为利用Data Classes。列出的许多库具有不同的特性集，当然还会继续存在和发展。
+
+哪里不适合使用Data Classes？
++ 需要与元组或字典兼容的API。
++ 除了PEPs 484和526提供的类型验证之外，还需要进行值验证或转换。
+
+### 规范
+本PEP中描述的所有功能都将存在于名为dataclasses的模块中 。
+
+通常用作类装饰器的函数dataclass，被提供给后处理类并添加生成的方法，如下所述。
+
+dataclass装饰器检查类查找字段。字段定义为__annotations__中标识的任何变量，也就是说，一个具有类型注释的变量。除了下面描述的两个例外，没有一个Data Classes机制检查注释中指定的类型。
+
+请注意，__annotations__在类声明顺序中保证是有序映射。所有生成的方法中的字段顺序是它们在类中出现的顺序。
+
+数据类装饰器将向类添加各种“dunder”方法，如下所述。如果类上已经存在任何添加的方法，则会引发一个TypeError。装饰器返回被调用的同一个类:不创建新类。
+
+DataClass修饰符通常不带参数和括号。但是，它还支持以下逻辑签名：
+```python
+def dataclass(*, init=True, repr=True, eq=True, order=False, unsafe_hash=False, frozen=False)
+```
+如果将DataClass用作不带参数的简单修饰器，则它的作用就像它具有记录在此签名中的默认值一样。也就是说，@dataclass的这三种用法是等效的：
+```python
+@dataclass
+class C:
+    ...
+
+@dataclass()
+class C:
+    ...
+
+@dataclass(init=True, repr=True, eq=True, order=False, unsafe_hash=False, frozen=False)
+class C:
+    ...
+```
+
+DataClass的参数是：
++ init: 如果为true（默认值），将生成__init__方法。
++ repr: 如果为true（默认值），将生成__repr__方法。
