@@ -154,4 +154,127 @@ class C:
 
 DataClass的参数是：
 + init: 如果为true（默认值），将生成__init__方法。
-+ repr: 如果为true（默认值），将生成__repr__方法。
++ repr: 如果为true（默认值），将生成__repr__方法。生成的repr字符串将包含类名以及每个字段的名称和repr，按照它们在类中定义的顺序排列。标记为被排除在repr之外的字段不包括在内。例如:InventoryItem(name='widget'， unit_price=3.0, quantity_on_hand=10)。
+如果类已经定义了_repr__，则忽略该参数。
+
++ eq:如果为true(默认值)，将生成一个_eq__方法。按顺序，该方法将类作为其字段的元组进行比较。比较中的两个实例必须具有相同的类型。
+
+如果类已经定义了_eq__，则忽略该参数。
+
++ order:如果为true(缺省值为False)，将生成__lt__、__le__、__gt__和__ge__方法。按照顺序，它们将类作为其字段的元组进行比较。比较中的两个实例必须具有相同的类型。如果order为真，eq为假，则会引发ValueError。
+
+如果类已经定义了任何__lt__、__le__、__gt__或__ge__，则会引发ValueError。
+
++ unsafe_hash:如果为False(默认值)，则根据eq和frozen的设置方式生成_hash__方法。
+
+如果eq和frozen都为true，数据类将为您生成一个__hash__方法。如果eq为真，frozen为假，那么将会将__hash__设置为None，标记为unhashable(确实如此)。如果eq为false，则将不使用__hash__，这意味着将使用超类的__hash__方法(如果超类是object，这意味着它将返回到基于id的散列)。
+
+虽然不推荐，但是您可以强制 Data Classes创建一个带有unsafe_hash=True的__hash__方法。如果您的类在逻辑上是不可变的，但仍然可以进行修改，则可能会出现这种情况。这是一个特殊的用例，应该仔细考虑。
+
+如果一个类已经有一个显式定义的__hash__，那么添加__hash__时的行为将被修改。显式定义的__hash__在以下情况下定义:
+    + 类中定义了__eq__，并且用除None之外的任何值定义了__hash__。
+    + 类中定义了__eq__，并且定义了任何非空的__hash__。
+    + 类上没有定义__eq__，并且定义了任何__hash__。
+    
+如果unsafe_hash为真，并且显式定义了一个__hash__，则会引发ValueError。
+
+如果unsafe_hash为false，并且显式定义了一个__hash__，则不添加任何__hash__。
+
+有关更多信息，请参阅Python文档[7]。
+
++ frozen: 如果为真(默认为假)，分配给字段将生成异常。这模拟只读冻结实例。如果类中定义了_getattr__或_setattr__，则会引发ValueError。参见下面的讨论。
+
+字段可以选择指定一个默认值，使用普通Python语法:
+```python
+@dataclass
+class C:
+    a: int       # 'a' has no default value
+    b: int = 0   # assign a default value for 'b'
+```
+在本例中，a和b都包含在添加的__init__方法中，该方法定义为:
+```python
+def __init__(self, a: int, b: int = 0):
+```
+如果没有默认值的字段跟随具有默认值的字段，则会引发TypeError。无论是在单个类中发生这种情况，还是作为类继承的结果，都是如此。
+
+对于普通和简单的用例，不需要其他功能。但是，有些 Data Class特性需要每个字段额外的信息。为了满足对附加信息的需求，可以使用对提供的field()函数的调用替换默认字段值。field()的签名为:
+```python
+def field(*, default=MISSING, default_factory=MISSING, repr=True,
+          hash=None, init=True, compare=True, metadata=None)
+```
+缺失的值是一个sentinel对象，用于检测是否提供了默认值和default_factory参数。使用这个标记是因为None是默认值的有效值。
+
+field()的参数为:
++ default:如果提供，这将是该字段的默认值。这是必需的，因为字段调用本身替换了默认值的正常位置。
+
++ default_factory:如果提供，那么它必须是一个零参数可调用的，当这个字段需要一个默认值时，它将被调用。在其他用途中，这可以用于指定具有可变默认值的字段，如下所述。同时指定default和default_factory错误的。
+
++ init:如果为true(默认值)，该字段将作为参数包含到生成的__init__方法中。
+
++ repr:如果为真(默认值)，则该字段包含在生成的__repr__方法返回的字符串中。
+
++ compare: 如果为True(默认值)，则生成的等式和比较方法(__eq__, __gt__, et al.)中包含该字段。
+
++ hash:这个可以是bool，也可以是None。如果为真，则该字段包含在生成的_hash__方法中。如果没有(默认值)，则使用compare的值:这通常是预期的行为。如果字段用于比较，则应该在散列中考虑它。不建议将此值设置为None以外的任何值。
+
+设置hash=False而compare=True的一个可能原因是，如果计算一个字段的hash值很昂贵，那么这个字段就需要进行相等性测试，并且还有其他字段对类型的hash值有贡献。即使字段被排除在散列之外，它仍然用于比较。
+
++ metadata:可以是映射，也可以没有。None被视为空的dict。该值被包装在类型中。将其设置为只读，并在字段对象上公开。它根本不被Data Classes使用，而是作为第三方扩展机制提供的。多个第三方都可以拥有自己的密钥，以便在元数据中用作名称空间。
+
+如果字段的默认值是通过调用field()指定的，那么这个字段的class属性将被指定的默认值替换。如果没有提供默认值，那么class属性将被删除。其目的是在dataclass装饰器运行后，类属性将包含字段的默认值，就像指定默认值本身一样。例如：
+```python
+@dataclass
+class C:
+    x: int
+    y: int = field(repr=False)
+    z: int = field(repr=False, default=10)
+    t: int = 20
+```
+
+类属性C.z是10，类属性C.t为20，类属性为C.x和C.y未设定。
+
+### Field 对象
+字段对象描述每个定义的字段。这些对象是在内部创建的，并由fields()模块级方法返回(参见下面)。用户永远不应该直接实例化字段对象。其文件化的属性是:
++ name:字段的名称。
++ 类型:字段的类型。
++ default、default_factory、init、repr、hash、compare和metadata具有与 field()声明中相同的含义和值。
+
+其他属性可能存在，但它们是私有的，不能检查或依赖。
+
+### post-init处理
+生成的__init__代码将调用一个名为__post_init__的方法，如果它是在类上定义的。它将被称为self. __post_init__()。如果没有生成__init__方法，则不会自动调用__post_init__。
+
+在其他用途中，这允许初始化依赖于一个或多个其他字段的字段值。例如:
+```python
+@dataclass
+class C:
+    a: float
+    b: float
+    c: float = field(init=False)
+
+    def __post_init__(self):
+        self.c = self.a + self.b
+```
+
+有关将参数传递给__post_init __（）的方法，请参阅下面有关init-only变量的部分。另请参阅有关replace（）如何处理init = False字段的警告 。
+
+### 类变量
+dataclass实际检查字段类型的一个地方是确定字段是否是PEP 526中定义的类变量。它通过检查字段的类型是否为type . classvar来实现这一点。如果一个字段是一个ClassVar，那么它将被排除在作为字段的考虑之外，并被 Data Class机制忽略。有关更多讨论，请参见[8]。函数不会返回这样的ClassVar伪字段。
+
+### Init-only变量
+dataclass检查类型注释的另一个地方是确定字段是否是只包含init的变量。它通过查看字段的类型是否是dataclass.initvar类型来实现这一点。如果一个字段是一个InitVar，那么它就被认为是一个伪字段，称为 init-only字段。因为它不是一个真正的字段，所以模块级fields()函数不会返回它。Init-only字段作为参数添加到生成的__init__方法中，并传递给可选的__post_init__方法。Data Classes不使用它们。
+
+例如，假设一个字段将从数据库初始化，如果在创建类时没有提供值:
+```python
+@dataclass
+class C:
+    i: int
+    j: int = None
+    database: InitVar[DatabaseType] = None
+
+    def __post_init__(self, database):
+        if self.j is None and database is not None:
+            self.j = database.lookup('j')
+
+c = C(10, database=my_database)
+```
